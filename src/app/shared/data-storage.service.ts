@@ -36,15 +36,13 @@ export class DataStorageService {
               ingredients: recipe.ingredients ? recipe.ingredients : [],
             };
           });
-        }), 
-        tap(recipes => {
+        }),
+        tap((recipes) => {
           this.recipeService.setRecipes(recipes);
-
         })
-      )
-      // If has not to be resolved in resolver
-      // .subscribe((recipes) => {
-      //   this.recipeService.setRecipes(recipes);
-      // });
+      );
+    // .subscribe((recipes) => {
+    //   this.recipeService.setRecipes(recipes);
+    // });
   }
 }

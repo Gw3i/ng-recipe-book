@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ComponentFactoryResolver } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
@@ -14,7 +14,11 @@ export class AuthComponent {
   isLoading = false;
   error: string = null;
 
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor(
+    private authService: AuthService,
+    private router: Router,
+    private componentFactoryResolver: ComponentFactoryResolver
+  ) {}
 
   onSwitchMode() {
     this.isLoginMode = !this.isLoginMode;
@@ -46,10 +50,15 @@ export class AuthComponent {
       (errorMessage) => {
         console.log(errorMessage);
         this.error = errorMessage;
+
         this.isLoading = false;
       }
     );
 
     form.reset();
+  }
+
+  onHandleError() {
+    this.error = null;
   }
 }
